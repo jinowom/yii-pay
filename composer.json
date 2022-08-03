@@ -1,0 +1,74 @@
+{
+    "name": "jinowom/yii-pay",
+    "description": "适配于 Yii 的 alipay 和 wechat 的支付扩展包，引用jinowom/pay扩展包",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "pay",
+        "alipay",
+        "wechat"
+    ],
+    "authors": [
+        {
+            "name": "jinowom",
+            "email": "cocoli6000@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/jinowom/yii-pay/issues",
+        "source": "https://github.com/jinowom/yii-pay"
+    },
+    "require": {
+        "jinowom/pay": "^1.0",
+        "yiisoft/yii2": "^2.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.0 || ^3.0",
+        "mockery/mockery": "^1.3",
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+        "vimeo/psalm": "^3.0 || ^4.0 || ^5.0"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Jinowom\\YiiPay\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jinowom\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "composer test",
+                "composer style-lint"
+            ],
+            "pre-push": [
+                "composer test",
+                "composer style-lint"
+            ]
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "cghooks add --ignore-lock",
+            "cghooks update"
+        ],
+        "post-update-cmd": [
+            "cghooks update"
+        ],
+        "post-merge": "composer install",
+        "psalm": "./vendor/bin/psalm",
+        "style-fix": "php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
+        "style-lint": "php-cs-fixer fix --using-cache=no --diff --config=.php-cs-fixer.php --dry-run --ansi",
+        "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+    }
+}
